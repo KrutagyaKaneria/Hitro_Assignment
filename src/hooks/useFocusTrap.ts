@@ -16,9 +16,6 @@ export function useFocusTrap(
 ) {
   useEffect(() => {
     if (!active || !containerRef.current) return
-    // debug: trace focus-trap activation
-    // eslint-disable-next-line no-console
-    console.trace('useFocusTrap active', active, containerRef.current?.tagName)
     const root = containerRef.current
 
     const focusables = getFocusable(root)

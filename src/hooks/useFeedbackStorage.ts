@@ -35,9 +35,6 @@ let _lastParsedFeedback: FeedbackPersistedShape = { version: 1, entries: [] }
 
 function writePersisted(next: FeedbackPersistedShape) {
   if (typeof window === 'undefined') return
-  // debug: log when feedback storage is written (helps detect loops)
-  // eslint-disable-next-line no-console
-  console.trace('writePersisted', next)
   localStorage.setItem(STORAGE_KEYS.feedback, JSON.stringify(next))
   emit()
 }

@@ -43,9 +43,6 @@ function DashboardShellInner() {
 
   useEffect(() => {
     if (!mobileOpen) return
-    // debug: trace mobile menu effect mounts/unmounts
-    // eslint-disable-next-line no-console
-    console.trace('DashboardShell: mobileOpen effect', mobileOpen)
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setMobileOpen(false)
     }

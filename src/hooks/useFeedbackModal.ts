@@ -37,10 +37,6 @@ export function useFeedbackModal() {
 
   const submitDetail = useCallback(() => {
     if (rating < 1 || !message.trim()) return
-    // debug: log submit attempts
-    // eslint-disable-next-line no-console
-    console.trace('submitDetail', { rating, message })
-
     append({
       rating,
       feedbackType: polarityFromRating(rating),

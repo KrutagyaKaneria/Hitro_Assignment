@@ -8,12 +8,9 @@ export function useAuthHydration(): boolean {
   )
 
   useEffect(() => {
-    const unsub = useAuthStore.persist.onFinishHydration(() => {
-      // debug: track hydration callbacks that may trigger re-renders
-      // eslint-disable-next-line no-console
-      console.trace('useAuthHydration: onFinishHydration')
-      setHydrated(true)
-    })
+    const unsub = useAuthStore.persist.onFinishHydration(() =>
+      setHydrated(true),
+    )
     return unsub
   }, [])
 
