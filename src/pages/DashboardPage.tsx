@@ -67,7 +67,7 @@ export function DashboardPage() {
         {stats.isPending && !stats.data ? (
           <DashboardStatsSkeleton />
         ) : (
-          <div className="grid grid-cols-2 justify-items-stretch gap-x-[41px] gap-y-2.5 lg:flex lg:max-w-[1002px] lg:gap-[14px]">
+          <div className="grid grid-cols-2 gap-2.5 lg:flex lg:gap-3.5">
             <StatsCard
               label="Total Sessions"
               value={totalSessions}
@@ -102,7 +102,7 @@ export function DashboardPage() {
       >
         <h2
           id="recent-calls-heading"
-          className="mb-6 text-center text-[15px] font-normal leading-none text-foreground lg:mb-8 lg:text-[19px]"
+          className="mb-6 text-center text-base font-normal text-foreground lg:mb-8 lg:text-[19px]"
         >
           Recent calls
         </h2>
@@ -110,7 +110,7 @@ export function DashboardPage() {
         {sessions.isPending && !sessions.data ? (
           <DashboardRecentSkeleton />
         ) : !hasCalls ? (
-          <div className="rounded-lg border border-border bg-surface px-4 py-10 lg:py-12">
+          <div className="rounded-lg border border-border bg-surface px-4 py-12 lg:py-16">
             <EmptyState
               icon={Calendar}
               title="No Recent Calls"
@@ -119,7 +119,7 @@ export function DashboardPage() {
                 <Button
                   type="button"
                   variant="secondary"
-                  className="h-6 rounded-md border border-border px-2.5 text-xs font-normal lg:h-6 lg:px-2.5 lg:text-xs"
+                  className="h-6 rounded-md border border-border px-3 text-xs font-normal lg:h-7 lg:px-3 lg:text-sm"
                 >
                   Start a Call
                 </Button>

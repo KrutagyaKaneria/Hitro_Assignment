@@ -1,4 +1,5 @@
 import type { FeedbackEntry } from '@/types/feedback'
+import { Star } from 'lucide-react'
 import {
   formatFeedbackDescriptionPreview,
   formatFeedbackHistoryDate,
@@ -32,9 +33,15 @@ export function FeedbackHistoryCard({ entry }: Props) {
             </time>
           </p>
         </div>
-        <span className="shrink-0 pt-0.5 text-[11px] font-medium tabular-nums tracking-[0.3px] text-black/55">
-          {entry.rating}/5
-        </span>
+        <div className="shrink-0 flex items-center gap-1">
+          {[1, 2, 3, 4, 5].map((n) => (
+            <Star
+              key={n}
+              className={n <= entry.rating ? 'size-4 fill-amber-400 text-amber-400' : 'size-4 fill-zinc-100 text-zinc-200'}
+              aria-hidden
+            />
+          ))}
+        </div>
       </div>
     </article>
   )

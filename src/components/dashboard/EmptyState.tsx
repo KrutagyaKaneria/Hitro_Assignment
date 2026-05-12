@@ -21,22 +21,22 @@ export function EmptyState({
   return (
     <div
       className={cn(
-        'flex flex-col items-center justify-center text-center',
+        'flex flex-col items-center justify-center gap-4 text-center lg:gap-6',
         className,
       )}
     >
       {Icon ? (
-        <span className="mb-3 inline-flex size-9 items-center justify-center rounded-full bg-muted text-muted-foreground lg:mb-4 lg:size-[34px]">
-          <Icon className="size-4 lg:size-[14px]" aria-hidden />
+        <span className="inline-flex size-10 items-center justify-center rounded-full bg-muted text-muted-foreground lg:size-12">
+          <Icon className="size-5 lg:size-6" aria-hidden />
         </span>
       ) : null}
-      <h3 className="text-[17px] font-medium leading-tight text-foreground lg:text-[17px]">
+      <h3 className="text-base font-semibold leading-tight text-foreground lg:text-lg">
         {title}
       </h3>
-      <p className="mt-2 max-w-[302px] text-xs leading-snug text-muted-foreground lg:mt-2 lg:text-sm">
+      <p className="max-w-xs text-xs leading-relaxed text-muted-foreground lg:text-sm lg:max-w-sm">
         {description}
       </p>
-      {action ? <div className="mt-6 lg:mt-8">{action}</div> : null}
+      {action ? <div className="mt-2 lg:mt-4">{action}</div> : null}
     </div>
   )
 }

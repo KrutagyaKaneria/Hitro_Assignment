@@ -13,11 +13,11 @@ export function CallsList({ groups }: Props) {
         <section key={group.key} aria-labelledby={`day-${group.key}`}>
           <h3
             id={`day-${group.key}`}
-            className="mb-4 text-center text-[10px] font-normal leading-none text-muted-foreground lg:mb-4 lg:text-[15px]"
+            className="mb-4 text-center text-xs font-normal text-muted-foreground lg:mb-4 lg:text-sm"
           >
             {group.heading}
           </h3>
-          <div className="mx-auto w-full max-w-[364px] lg:max-w-[790px]">
+          <div className="mx-auto w-full">
             {group.sessions.map((s) => (
               <CallRow key={s._id} session={s} />
             ))}
