@@ -25,8 +25,20 @@ export type SidebarNavEntry =
       icon: LucideIcon
       info?: boolean
     }
+  | {
+      type: 'feedback'
+      label: string
+      icon: LucideIcon
+    }
 
-export const SIDEBAR_PRIMARY: SidebarNavEntry[] = [
+export type SidebarPrimaryEntry = Exclude<
+  SidebarNavEntry,
+  { type: 'feedback' }
+>
+
+export type SidebarSecondaryEntry = SidebarNavEntry
+
+export const SIDEBAR_PRIMARY: SidebarPrimaryEntry[] = [
   { type: 'link', to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
   { type: 'item', label: 'Call Insights', icon: Phone },
   { type: 'item', label: 'Knowledge Base', icon: FileText, info: true },
@@ -34,7 +46,7 @@ export const SIDEBAR_PRIMARY: SidebarNavEntry[] = [
   { type: 'item', label: 'Boxy Controls', icon: SlidersHorizontal, info: true },
 ]
 
-export const SIDEBAR_SECONDARY: SidebarNavEntry[] = [
+export const SIDEBAR_SECONDARY: SidebarSecondaryEntry[] = [
   { type: 'item', label: 'Download Desktop App', icon: Download },
   {
     type: 'link',
@@ -42,5 +54,5 @@ export const SIDEBAR_SECONDARY: SidebarNavEntry[] = [
     label: 'Feedback History',
     icon: Inbox,
   },
-  { type: 'item', label: 'Feedback', icon: Gift },
+  { type: 'feedback', label: 'Feedback', icon: Gift },
 ]

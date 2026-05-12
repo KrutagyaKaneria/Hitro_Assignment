@@ -52,7 +52,7 @@ export function LoginPage() {
 
   return (
     <motion.div
-      className="flex w-full max-w-[24rem] flex-1 flex-col"
+      className="flex w-full max-w-[24rem] flex-1 flex-col md:max-w-[26rem]"
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.25, ease: 'easeOut' }}
@@ -134,13 +134,18 @@ export function LoginPage() {
       <div className="mt-auto flex w-full flex-col gap-4 pt-12 sm:flex-row sm:items-center sm:justify-between sm:pt-16">
         <button
           type="button"
-          className="inline-flex h-[30px] items-center justify-center rounded-md border border-border px-3 text-sm font-medium text-foreground hover:bg-muted"
+          className="inline-flex h-[30px] items-center justify-center rounded-md border border-border px-3 text-sm font-medium text-foreground transition-colors duration-200 hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface active:bg-muted/80"
         >
           Need help?
         </button>
         <p className="text-center text-sm text-muted-foreground sm:text-right">
           Don&apos;t you have an account?{' '}
-          <span className="font-medium text-foreground">Sign up</span>
+          <button
+            type="button"
+            className="font-medium text-foreground underline-offset-4 transition-colors hover:text-foreground/80 hover:underline focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            Sign up
+          </button>
         </p>
       </div>
     </motion.div>

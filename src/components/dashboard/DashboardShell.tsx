@@ -1,23 +1,36 @@
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader'
 import { MobileNavbar } from '@/components/dashboard/MobileNavbar'
 import { Sidebar } from '@/components/dashboard/Sidebar'
+import { FeedbackModal } from '@/components/feedback/FeedbackModal'
+import { FeedbackFlowProvider } from '@/contexts/FeedbackFlowProvider'
+import { useFeedbackFlow } from '@/contexts/useFeedbackFlow'
 import { useAuthHydration } from '@/hooks/useAuthHydration'
 import { useDashboardQueries } from '@/hooks/useDashboardQueries'
 import { useAuthStore } from '@/store/useAuthStore'
 import { getInitials } from '@/utils/getInitials'
 
 export function DashboardShell() {
+  return (
+    <FeedbackFlowProvider>
+      <DashboardShellInner />
+    </FeedbackFlowProvider>
+  )
+}
+
+function DashboardShellInner() {
   const location = useLocation()
+  const reduceMotion = useReducedMotion()
   const [mobileOpen, setMobileOpen] = useState(false)
   const hydrated = useAuthHydration()
   const userId = useAuthStore((s) => s.userId)
   const enabled = hydrated && !!userId
 
   const { profile, dashboard } = useDashboardQueries(enabled)
+  const { open: openFeedback } = useFeedbackFlow()
 
   const title = location.pathname.startsWith('/feedback-history')
     ? 'Feedback History'
@@ -30,6 +43,9 @@ export function DashboardShell() {
 
   useEffect(() => {
     if (!mobileOpen) return
+    // debug: trace mobile menu effect mounts/unmounts
+    // eslint-disable-next-line no-console
+    console.trace('DashboardShell: mobileOpen effect', mobileOpen)
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setMobileOpen(false)
     }
@@ -42,7 +58,10 @@ export function DashboardShell() {
       <div className="hidden shrink-0 lg:block lg:w-[262px]" aria-hidden />
 
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-[262px] border-r border-border bg-surface lg:block">
-        <Sidebar usage={dashboard.data?.usage} />
+        <Sidebar
+          usage={dashboard.data?.usage}
+          onOpenFeedback={openFeedback}
+        />
       </aside>
 
       <AnimatePresence>
@@ -58,7 +77,7 @@ export function DashboardShell() {
             <button
               type="button"
               aria-label="Close menu"
-              className="absolute inset-0 bg-black/40"
+              className="absolute inset-0 bg-black/32 transition-opacity duration-200"
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
@@ -75,6 +94,7 @@ export function DashboardShell() {
               <Sidebar
                 compact
                 usage={dashboard.data?.usage}
+                onOpenFeedback={openFeedback}
                 onNavigate={() => setMobileOpen(false)}
               />
             </motion.div>
@@ -91,9 +111,29 @@ export function DashboardShell() {
         />
         <DashboardHeader title={title} initials={initials} />
         <main className="flex-1 bg-background">
-          <Outlet />
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={location.pathname}
+              className="min-h-0"
+              initial={
+                reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }
+              }
+              animate={{ opacity: 1, y: 0 }}
+              exit={
+                reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: -6 }
+              }
+              transition={{
+                duration: reduceMotion ? 0 : 0.22,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+            >
+              <Outlet />
+            </motion.div>
+          </AnimatePresence>
         </main>
       </div>
+
+      <FeedbackModal />
     </div>
   )
 }

@@ -10,6 +10,7 @@ export function DashboardErrorBanner({ message, onRetry }: Props) {
     <div
       className="mb-6 flex flex-col gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-900 sm:flex-row sm:items-center sm:justify-between"
       role="alert"
+      aria-live="assertive"
     >
       <p className="font-medium">{message}</p>
       <Button

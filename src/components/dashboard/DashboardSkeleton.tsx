@@ -1,3 +1,6 @@
+import { PAGE_SHELL_CLASS } from '@/constants/pageShell'
+import { cn } from '@/utils/cn'
+
 function StatSkeleton() {
   return (
     <div className="flex h-[54px] w-full max-w-[160px] items-center gap-2.5 rounded-lg border border-border bg-surface px-2.5 py-2 lg:h-20 lg:max-w-[240px] lg:gap-3 lg:px-4">
@@ -42,7 +45,7 @@ export function DashboardRecentSkeleton() {
 
 export function DashboardPageSkeleton() {
   return (
-    <div className="w-full animate-pulse space-y-6 px-5 py-6 lg:px-[83px] lg:py-10">
+    <div className={cn(PAGE_SHELL_CLASS, 'animate-pulse space-y-6')}>
       <div className="h-6 w-2/3 rounded bg-muted lg:h-8" />
       <div className="h-4 w-1/2 rounded bg-muted" />
       <DashboardStatsSkeleton />

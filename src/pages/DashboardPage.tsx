@@ -1,4 +1,5 @@
 import { Calendar, CalendarDays, Clock, PieChart, Sparkles } from 'lucide-react'
+import { useMemo } from 'react'
 
 import { CallsList } from '@/components/dashboard/CallsList'
 import { DashboardErrorBanner } from '@/components/dashboard/DashboardErrorBanner'
@@ -18,6 +19,7 @@ import { formatDurationSeconds } from '@/utils/formatDuration'
 import { groupCallSessionsByDay } from '@/utils/groupCallSessionsByDay'
 import { getErrorMessage } from '@/utils/errorMessage'
 import { formatLastSessionRelative } from '@/utils/lastSessionLabel'
+import { PAGE_SHELL_CLASS } from '@/constants/pageShell'
 
 export function DashboardPage() {
   const hydrated = useAuthHydration()
@@ -30,6 +32,11 @@ export function DashboardPage() {
   const err =
     profile.error ?? dashboard.error ?? stats.error ?? sessions.error
 
+  const groups = useMemo(
+    () => groupCallSessionsByDay(sessions.data?.callSessions ?? []),
+    [sessions.data?.callSessions],
+  )
+
   if (!enabled) return null
 
   if (isLoading) {
@@ -37,7 +44,6 @@ export function DashboardPage() {
   }
 
   const firstName = profile.data?.firstName ?? 'there'
-  const groups = groupCallSessionsByDay(sessions.data?.callSessions ?? [])
   const hasCalls = (sessions.data?.callSessions?.length ?? 0) > 0
 
   const totalSessions = String(stats.data?.totalSessions ?? 0)
@@ -47,7 +53,7 @@ export function DashboardPage() {
   const lastLabel = formatLastSessionRelative(stats.data?.lastSession ?? [])
 
   return (
-    <div className="w-full px-5 pb-12 pt-6 lg:px-[83px] lg:pb-16 lg:pt-10">
+    <div className={PAGE_SHELL_CLASS}>
       {isError && err ? (
         <DashboardErrorBanner
           message={getErrorMessage(err)}

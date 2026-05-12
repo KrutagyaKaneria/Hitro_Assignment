@@ -9,12 +9,19 @@ import { SidebarItem } from './SidebarItem'
 type Props = {
   usage?: DashboardResponse['usage']
   onNavigate?: () => void
+  onOpenFeedback?: () => void
   /** Smaller typography for the mobile drawer. */
   compact?: boolean
   className?: string
 }
 
-export function Sidebar({ usage, onNavigate, compact, className }: Props) {
+export function Sidebar({
+  usage,
+  onNavigate,
+  onOpenFeedback,
+  compact,
+  className,
+}: Props) {
   const used = usage?.kb_files.used ?? 0
   const limit = usage?.kb_files.limit ?? 0
 
@@ -90,7 +97,18 @@ export function Sidebar({ usage, onNavigate, compact, className }: Props) {
                 compact={compact}
                 onNavigate={onNavigate}
               />
-            ) : (
+            ) : entry.type === 'feedback' ? (
+              <SidebarItem
+                key={entry.label}
+                icon={entry.icon}
+                label={entry.label}
+                compact={compact}
+                onNavigate={() => {
+                  onOpenFeedback?.()
+                  onNavigate?.()
+                }}
+              />
+            ) : entry.type === 'item' ? (
               <SidebarItem
                 key={entry.label}
                 icon={entry.icon}
@@ -98,7 +116,7 @@ export function Sidebar({ usage, onNavigate, compact, className }: Props) {
                 compact={compact}
                 muted
               />
-            ),
+            ) : null,
           )}
         </div>
 

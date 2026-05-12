@@ -15,9 +15,17 @@ export function RequireAuth({ children }: Props) {
 
   if (!hydrated) {
     return (
-      <div className="flex min-h-dvh flex-col items-center justify-center gap-2 bg-background px-4 text-center text-sm text-muted-foreground">
-        <span className="inline-block size-6 animate-spin rounded-full border-2 border-border border-t-foreground" />
-        Loading workspace…
+      <div
+        className="flex min-h-dvh flex-col items-center justify-center gap-2 bg-background px-4 text-center text-sm text-muted-foreground"
+        role="status"
+        aria-busy="true"
+        aria-live="polite"
+      >
+        <span
+          className="inline-block size-6 animate-spin rounded-full border-2 border-border border-t-foreground"
+          aria-hidden
+        />
+        <span>Loading workspace…</span>
       </div>
     )
   }

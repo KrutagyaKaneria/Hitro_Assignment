@@ -34,7 +34,9 @@ export function MobileNavbar({
       >
         <Menu className="size-[18px]" strokeWidth={2} aria-hidden />
       </button>
-      <h1 className="text-[19px] font-normal leading-none text-foreground">{title}</h1>
+      <h1 className="min-w-0 max-w-[55%] truncate text-center text-[19px] font-normal leading-none text-foreground">
+        {title}
+      </h1>
       <span
         className="flex size-5 items-center justify-center overflow-hidden rounded-full bg-muted text-[10px] font-medium text-foreground"
         aria-hidden

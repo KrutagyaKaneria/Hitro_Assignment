@@ -1,11 +1,18 @@
+import { Suspense } from 'react'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 
 import { DashboardShell } from '@/components/dashboard/DashboardShell'
+import {
+  DashboardRouteFallback,
+  MinimalRouteFallback,
+} from '@/components/layout/RouteFallback'
 import { RequireAuth } from '@/components/layout/RequireAuth'
 import { AuthLayout } from '@/layouts/AuthLayout'
-import { DashboardPage } from '@/pages/DashboardPage'
-import { FeedbackHistoryPage } from '@/pages/FeedbackHistoryPage'
-import { LoginPage } from '@/pages/LoginPage'
+import {
+  LazyDashboardPage,
+  LazyFeedbackHistoryPage,
+  LazyLoginPage,
+} from '@/routes/lazyPages'
 
 export const router = createBrowserRouter([
   {
@@ -16,15 +23,31 @@ export const router = createBrowserRouter([
       </RequireAuth>
     ),
     children: [
-      { index: true, element: <DashboardPage /> },
-      { path: 'feedback-history', element: <FeedbackHistoryPage /> },
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<DashboardRouteFallback />}>
+            <LazyDashboardPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'feedback-history',
+        element: (
+          <Suspense fallback={<DashboardRouteFallback />}>
+            <LazyFeedbackHistoryPage />
+          </Suspense>
+        ),
+      },
     ],
   },
   {
     path: '/login',
     element: (
       <AuthLayout>
-        <LoginPage />
+        <Suspense fallback={<MinimalRouteFallback />}>
+          <LazyLoginPage />
+        </Suspense>
       </AuthLayout>
     ),
   },
