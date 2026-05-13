@@ -2,6 +2,7 @@ import { MoreVertical } from 'lucide-react'
 
 import type { CallSession } from '@/types/api'
 import { formatCallClock } from '@/utils/formatCallTime'
+import { getInitials } from '@/utils/getInitials'
 
 type Props = {
   session: CallSession
@@ -24,6 +25,20 @@ export function CallRow({ session }: Props) {
         </div>
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-medium leading-tight text-foreground">{title}</p>
+          <div className="mt-1 flex items-center gap-1">
+            {session.participants?.slice(0, 3).map((p, i) => (
+              <div
+                key={i}
+                className="flex size-5 shrink-0 items-center justify-center rounded-full bg-slate-300 text-[9px] font-semibold text-slate-700"
+                title={p.name}
+              >
+                {getInitials(p.name)}
+              </div>
+            ))}
+            {session.participants && session.participants.length > 3 && (
+              <span className="text-xs text-muted-foreground">+{session.participants.length - 3}</span>
+            )}
+          </div>
           {subtitle && subtitle !== title ? (
             <p className="mt-0.5 truncate text-xs text-muted-foreground">{subtitle}</p>
           ) : null}
@@ -51,6 +66,20 @@ export function CallRow({ session }: Props) {
         </div>
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-medium leading-tight text-foreground">{title}</p>
+          <div className="flex items-center gap-1">
+            {session.participants?.slice(0, 4).map((p, i) => (
+              <div
+                key={i}
+                className="flex size-5 shrink-0 items-center justify-center rounded-full bg-slate-300 text-[9px] font-semibold text-slate-700"
+                title={p.name}
+              >
+                {getInitials(p.name)}
+              </div>
+            ))}
+            {session.participants && session.participants.length > 4 && (
+              <span className="text-xs text-muted-foreground">+{session.participants.length - 4}</span>
+            )}
+          </div>
           {subtitle && subtitle !== title ? (
             <p className="text-xs text-muted-foreground">{subtitle}</p>
           ) : null}
