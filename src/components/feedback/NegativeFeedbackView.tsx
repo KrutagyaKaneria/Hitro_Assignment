@@ -38,7 +38,7 @@ export function NegativeFeedbackView({
             value={message}
             onChange={(e) => onMessageChange(e.target.value)}
             rows={4}
-            className="min-h-[121px] w-full resize-y rounded-[4px] border border-[#e3e9ef] bg-surface px-3 py-2.5 text-[14px] leading-normal text-foreground placeholder:text-black/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+            className="min-h-[121px] w-full resize-y rounded-[4px] border border-muted bg-surface px-3 py-2.5 text-[14px] leading-normal text-foreground placeholder:text-black/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
             placeholder="Share details…"
           />
         </div>

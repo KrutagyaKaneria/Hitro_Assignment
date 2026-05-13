@@ -8,7 +8,7 @@ type Props = {
 export function FeedbackHistoryEmptyTable({ onGiveFeedback }: Props) {
   return (
     <div className="hidden w-full max-w-[1010px] overflow-hidden rounded-2xl border border-black/50 lg:block">
-      <div className="rounded-t-2xl border-b border-black/50 bg-[#f8f9fd] px-4 py-3">
+      <div className="rounded-t-2xl border-b border-black/50 bg-table-header px-4 py-3">
         <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,0.9fr)_minmax(0,2.4fr)_minmax(0,1.2fr)_minmax(0,0.9fr)] gap-4 text-[14px] font-medium leading-none tracking-[0.3px] text-black/40">
           <span>Title</span>
           <span>Rating</span>
