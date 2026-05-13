@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
+import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 
 import { Button } from '@/components/ui/Button'
@@ -11,9 +12,12 @@ type Props = {
 
 export function LogoutModal({ open, onClose }: Props) {
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
   const clearAuth = useAuthStore((s) => s.clearAuth)
 
   const handleLogout = () => {
+    queryClient.removeQueries({ queryKey: ['auth'] })
+    queryClient.removeQueries({ queryKey: ['call-sessions'] })
     clearAuth()
     navigate('/login', { replace: true })
   }

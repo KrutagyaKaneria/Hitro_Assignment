@@ -29,7 +29,7 @@ function DashboardShellInner() {
   const userId = useAuthStore((s) => s.userId)
   const enabled = hydrated && !!userId
 
-  const { profile, dashboard } = useDashboardQueries(enabled)
+  const { profile, dashboard } = useDashboardQueries(userId, enabled)
   const { open: openFeedback } = useFeedbackFlow()
 
   const title = location.pathname.startsWith('/feedback-history')

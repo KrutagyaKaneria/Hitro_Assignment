@@ -27,7 +27,7 @@ export function DashboardPage() {
   const enabled = hydrated && !!userId
 
   const { profile, dashboard, stats, sessions, isLoading, isError, refetchAll } =
-    useDashboardQueries(enabled)
+    useDashboardQueries(userId, enabled)
 
   const err =
     profile.error ?? dashboard.error ?? stats.error ?? sessions.error

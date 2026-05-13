@@ -4,29 +4,31 @@ import { fetchAuthDashboard, fetchAuthProfile } from '@/api/auth'
 import { fetchCallSessions, fetchCallStats } from '@/api/callSessions'
 import { queryKeys } from '@/constants/queryKeys'
 
-export function useDashboardQueries(enabled: boolean) {
+export function useDashboardQueries(userId: string | null, enabled: boolean) {
+  const queryEnabled = enabled && !!userId
+
   const profile = useQuery({
-    queryKey: queryKeys.profile,
+    queryKey: queryKeys.profile(userId ?? 'anonymous'),
     queryFn: fetchAuthProfile,
-    enabled,
+    enabled: queryEnabled,
   })
 
   const dashboard = useQuery({
-    queryKey: queryKeys.dashboard,
+    queryKey: queryKeys.dashboard(userId ?? 'anonymous'),
     queryFn: fetchAuthDashboard,
-    enabled,
+    enabled: queryEnabled,
   })
 
   const stats = useQuery({
-    queryKey: queryKeys.callStats,
+    queryKey: queryKeys.callStats(userId ?? 'anonymous'),
     queryFn: fetchCallStats,
-    enabled,
+    enabled: queryEnabled,
   })
 
   const sessions = useQuery({
-    queryKey: queryKeys.callSessions(10),
+    queryKey: queryKeys.callSessions(userId ?? 'anonymous', 10),
     queryFn: () => fetchCallSessions(10),
-    enabled,
+    enabled: queryEnabled,
   })
 
   const refetchAll = () => {
